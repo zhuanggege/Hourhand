@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表盘</title>
+	<link rel="stylesheet" type="text/css" href="css/init.css">
+	<style type="text/css" media="screen">
+		ul{
+
+			margin: 50px auto;
+			width: 400px;
+			height: 400px;
+			border-radius: 50%;
+			border: 2px solid #ccc;
+			position: relative;
+
+		}
+		li{
+
+			position: absolute;
+
+		} 
+		li:nth-child(1){
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+			background: red;
+			z-index: 4;
+			left:190px;
+			top: 190px;
+
+		}
+		li:nth-child(2){
+
+			width: 4px;
+			height: 190px;
+			border-radius: 20%;
+			background: orange;
+			left:198px;
+			top: 30px;
+			transform-origin: center 170px;
+			transform: rotate(30deg);
+			z-index: 3;
+
+
+		}
+		li:nth-child(3){
+
+			width: 6px;
+			height: 140px;
+			border-radius: 20%;
+			background: black;
+			left:198px;
+			top: 80px;
+			transform-origin: center 120px;
+			transform: rotate(60deg);
+			z-index: 2;
+
+		}
+		li:nth-child(4){
+
+			width: 8px;
+			height: 120px;
+			border-radius: 20%;
+			background: red;
+			left:198px;
+			top:100px;
+			transform-origin: center 100px;
+			transform: rotate(90deg);
+
+
+		}
+		.long{
+			position: absolute;
+			width: 6px;
+			height: 16px;
+			background: #ccc;
+			left:197px;
+			top:0px;
+			transform-origin: center 200px;
+			font-size: 15px;
+			font-weight: bold;
+			text-indent: -2px;
+
+
+		}
+		.short{
+			position: absolute;
+			width: 4px;
+			height: 12px;
+			background: #ccc;
+			left:198px;
+			top:0px;
+			transform-origin: center 200px;
+
+		}
+		
+	</style>
+	
+</head>
+<body>
+	<ul>
+		<li></li>
+		<li id="se"></li>
+		<li id="mi"></li>
+		<li id="hour"></li>
+	</ul>
+	
+	<script type="text/javascript">
+		var ul = document.getElementsByTagName('ul')[0];
+		var str = "";
+		var j = 0;
+		var k = 0;
+
+		//构建表盘
+		for (var i = 0; i < 60; i++) {
+			
+			if (i%5 == 0) {
+
+				str += '<li class="long" style=transform:rotate('+(i*6)+'deg)>'+j+'</li>';
+				j++;
+				k ++;
+				}else {
+					str += '<li class="short" style=transform:rotate('+(i*6)+'deg)>'+k+'</li>';
+					k++;
+				}
+
+		}
+		ul.innerHTML += str;
+
+		//定时器
+		setInterval(fn , 1000);
+
+		fn();
+
+		//指针的旋转（时分秒针）
+		function fn() {
+
+			var date = new Date();
+
+			var s = date.getSeconds();
+
+			var m = date.getMinutes()+s/60;
+
+			var h = date.getHours()+m/60;
+
+			se.style.transform = "rotate("+s*6+"deg)";
+
+			mi.style.transform = "rotate("+m*6+"deg)";
+
+			hour.style.transform = "rotate("+h*30+"deg)";
+
+
+		}
+
+
+	</script>
+</body>
+</html>
